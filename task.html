@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <link href="https://integrations.missiveapp.com/missive.css" rel="stylesheet">
+        <script src="https://integrations.missiveapp.com/missive.js"></script>
+    </head>
+    <body>
+
+        <h1>This is a Heading</h1>
+        <p>This is a paragraph.</p>
+
+        <script>
+            Missive.on('change:conversations', (ids) => {
+                console.log(ids);
+                Missive.fetchConversations(ids).then((conversations) => {
+                    if (conversations.length != 1) {
+                        // Do nothing if multiple conversations are selected.
+                        return
+                    }
+
+                    var message = conversations[0].latest_message
+                    if (!message || !message.from_field) {
+                        // Do nothing if conversation has no message (only chat comments) or if
+                        // message has no From field.
+                        return
+                    }
+
+                    var from = message.from_field
+                    console.log('Message from:', from.name, from.address)
+                    console.log('Message subject:', message.subject)
+                })
+            });
+        </script>
+    </body>
+</html>
