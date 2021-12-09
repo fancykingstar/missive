@@ -11,15 +11,15 @@
         <p>This is a paragraph.</p>
 
         <script>
-            // Missive.on('change:conversations', (ids) => {
-            //     Missive.fetchConversations(ids).then((conversations) => {
-            //         if (conversations && conversations.length > 0) {
-            //             conversation = conversations[0];
+            Missive.on('change:conversations', (ids) => {
+                Missive.fetchConversations(ids).then((conversations) => {
+                    if (conversations && conversations.length > 0) {
+                        conversation = conversations[0];
 
-            //             checkConversationId(conversation.link);
-            //         }
-            //     })
-            // });
+                        checkConversationId(conversation.link);
+                    }
+                })
+            });
 
             const checkConversationId = () => {
                 var request = new XMLHttpRequest();
@@ -29,9 +29,9 @@
                         let response = JSON.parse(request.responseText);
                         if (response && response.data) {
                             console.log(response.data);
-                            // Missive.openForm({
-                            //     name: 'Conversations'
-                            // })
+                            Missive.openForm({
+                                name: 'Conversations'
+                            })
                         }
                     } else {
                         console.error("Could not reach XSN_BTC volume");
