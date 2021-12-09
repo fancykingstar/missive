@@ -42,11 +42,12 @@ app.post('/send', (req, res) => {
         res.status(200).send({
           data: results
         });
+      } else {
+        res.status(200).send({
+          data: []
+        });
       }
 
-      res.status(200).send({
-        data: []
-      });
       // results.forEach(result => {
       //     console.log(result);
       // });
