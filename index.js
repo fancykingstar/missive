@@ -27,10 +27,6 @@ connection.connect(function(err) {
     console.log('Connected as id ' + connection.threadId);
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
-});
-
 app.post('/send', (req, res) => {
   const { id } = req.body;
   
@@ -59,6 +55,10 @@ app.get('/test', (req, res) => {
   res.status(200).send({
     data: 'results'
   });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
 });
 
 
