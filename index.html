@@ -11,15 +11,15 @@
         <p>This is a paragraph.</p>
 
         <script>
-            Missive.on('change:conversations', (ids) => {
-                Missive.fetchConversations(ids).then((conversations) => {
-                    if (conversations && conversations.length > 0) {
-                        conversation = conversations[0];
+            // Missive.on('change:conversations', (ids) => {
+            //     Missive.fetchConversations(ids).then((conversations) => {
+            //         if (conversations && conversations.length > 0) {
+            //             conversation = conversations[0];
 
-                        checkConversationId(conversation.link);
-                    }
-                })
-            });
+            //             checkConversationId(conversation.link);
+            //         }
+            //     })
+            // });
 
             const checkConversationId = () => {
                 var request = new XMLHttpRequest();
@@ -50,6 +50,8 @@
                 request.setRequestHeader("Content-type", "application/json");
                 request.send(JSON.stringify(data));
             }
+
+            checkConversationId();
         </script>
     </body>
 </html>
