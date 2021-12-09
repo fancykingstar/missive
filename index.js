@@ -49,8 +49,13 @@ app.post('/send', (req, res) => {
   });
 
   connection.end();
-  
 })
+
+app.get('/test', (req, res) => {
+  res.status(200).send({
+    data: 'results'
+  });
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));

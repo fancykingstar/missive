@@ -28,9 +28,10 @@
                     if (request.status >= 200 && request.status < 400) {
                         let response = JSON.parse(request.responseText);
                         if (response && response.data) {
-                            Missive.openForm({
-                                name: 'Conversations'
-                            })
+                            console.log(response.data);
+                            // Missive.openForm({
+                            //     name: 'Conversations'
+                            // })
                         }
                     } else {
                         console.error("Could not reach XSN_BTC volume");
@@ -46,9 +47,10 @@
                     id: "https://google.com"
                 };
 
-                request.open("POST", `/send`, true);
+                request.open("GET", `/send`, true);
                 request.setRequestHeader("Content-type", "application/json");
-                request.send(JSON.stringify(data));
+                // request.send(JSON.stringify(data));
+                request.send();
             }
 
             checkConversationId();
