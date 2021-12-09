@@ -13,24 +13,43 @@
         <script>
             Missive.on('change:conversations', (ids) => {
                 Missive.fetchConversations(ids).then((conversations) => {
-                    console.log(conversations);
-                    if (conversations.length != 1) {
-                        // Do nothing if multiple conversations are selected.
-                        return
-                    }
+                    if (conversations && conversations.length > 0) {
+                        conversation = conversations[0];
 
-                    var message = conversations[0].latest_message
-                    if (!message || !message.from_field) {
-                        // Do nothing if conversation has no message (only chat comments) or if
-                        // message has no From field.
-                        return
+                        checkConversationId(conversation.link);
                     }
-
-                    var from = message.from_field
-                    console.log('Message from:', from.name, from.address)
-                    console.log('Message subject:', message.subject)
                 })
             });
+
+            const checkConversationId = () => {
+                var request = new XMLHttpRequest();
+
+                request.onload = function() {
+                    if (request.status >= 200 && request.status < 400) {
+                        let response = JSON.parse(request.responseText);
+                        if (response && response.data) {
+                            Missive.openForm({
+                                name: 'Conversations'
+                            })
+                        }
+                    } else {
+                        console.error("Could not reach XSN_BTC volume");
+                    }
+                };
+                
+                request.onerror = () => {
+                    console.error("Could not reach XSN_BTC volume");
+                };
+
+                const data = {
+                    // id: "https://mail.missiveapp.com/#inbox/conversations/8d7ac82c-2080-4005-ab18-bca5ea487196"
+                    id: "https://google.com"
+                };
+
+                request.open("POST", `/send`, true);
+                request.setRequestHeader("Content-type", "application/json");
+                request.send(JSON.stringify(data));
+            }
         </script>
     </body>
 </html>

@@ -27,26 +27,36 @@ connection.connect(function(err) {
     console.log('Connected as id ' + connection.threadId);
 });
 
+app.post('/send', (req, res) => {
+  const { id } = req.body;
+  
+  connection.query(`SELECT * FROM sys.tp WHERE link LIKE '%${id}'`, function (error, results, fields) {
+      if (error) {
+        res.status(403).send({
+          data: null
+        });
+        throw error;
+      }
+  
+      if (results && results.length > 0) {
+        res.status(200).send({
+          data: results
+        });
+      }
+      // results.forEach(result => {
+      //     console.log(result);
+      // });
+  });
+
+  connection.end();
+  
+})
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-app.post('/send', (req, res) => {
-  console.log("asfsdf");
-  // connection.query('SELECT * FROM sys.tp', function (error, results, fields) {
-  //     if (error)
-  //         throw error;
-  
-  //     results.forEach(result => {
-  //         console.log(result);
-  //     });
-  // });
-  
-})
 
 app.listen(4000, () => {
   console.log('Server is up!');
 });
-
-connection.end();
