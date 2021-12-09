@@ -47,10 +47,9 @@
                     id: "https://google.com"
                 };
 
-                request.open("GET", `/send`, true);
+                request.open("POST", `/send`, true);
                 request.setRequestHeader("Content-type", "application/json");
-                // request.send(JSON.stringify(data));
-                request.send();
+                request.send(JSON.stringify(data));
             }
 
             checkConversationId();
