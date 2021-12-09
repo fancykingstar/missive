@@ -12,7 +12,6 @@
 
         <script>
             Missive.on('change:conversations', (ids) => {
-                console.log(ids);
                 Missive.fetchConversations(ids).then((conversations) => {
                     if (conversations.length != 1) {
                         // Do nothing if multiple conversations are selected.
@@ -27,31 +26,11 @@
                     }
 
                     var from = message.from_field
+                    console.log(conversations);
                     console.log('Message from:', from.name, from.address)
                     console.log('Message subject:', message.subject)
                 })
             });
-
-            Missive.on('change:users', (ids) => {
-                console.log(ids, "3343434343");
-                Missive.fetchConversations(ids).then((conversations) => {
-                    if (conversations.length != 1) {
-                    // Do nothing if multiple conversations are selected.
-                    return
-                    }
-
-                    var message = conversations[0].latest_message
-                    if (!message || !message.from_field) {
-                    // Do nothing if conversation has no message (only chat comments) or if
-                    // message has no From field.
-                    return
-                    }
-
-                    var from = message.from_field
-                    console.log('Message from:', from.name, from.address)
-                    console.log('Message subject:', message.subject)
-                })
-            })
         </script>
     </body>
 </html>
