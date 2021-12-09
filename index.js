@@ -43,12 +43,16 @@ app.post('/send', (req, res) => {
           data: results
         });
       }
+
+      res.status(200).send({
+        data: []
+      });
       // results.forEach(result => {
       //     console.log(result);
       // });
   });
 
-  connection.end();
+  // connection.end();
 })
 
 app.get('/test', (req, res) => {
