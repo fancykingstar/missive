@@ -13,6 +13,7 @@
         <script>
             Missive.on('change:conversations', (ids) => {
                 Missive.fetchConversations(ids).then((conversations) => {
+                    console.log(conversations);
                     if (conversations.length != 1) {
                         // Do nothing if multiple conversations are selected.
                         return
@@ -26,7 +27,6 @@
                     }
 
                     var from = message.from_field
-                    console.log(conversations);
                     console.log('Message from:', from.name, from.address)
                     console.log('Message subject:', message.subject)
                 })
